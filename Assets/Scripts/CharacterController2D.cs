@@ -9,11 +9,14 @@ public class CharacterController2D : MonoBehaviour
 
     Vector2 movement;
 
+    Animator animator;
+
     Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -25,5 +28,16 @@ public class CharacterController2D : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+
+        if (movement != Vector2.zero)
+        {
+            animator.SetFloat("MovementX", movement.x);
+            animator.SetFloat("MovementY", movement.y);
+            animator.SetBool("moving", true);
+        }
+        else
+        {
+            animator.SetBool("moving", false);
+        }
     }
 }
