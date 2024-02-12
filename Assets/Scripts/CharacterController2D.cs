@@ -27,8 +27,17 @@ public class CharacterController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+        HandleMovement();
+        HandleAnimations();
+    }
 
+    void HandleMovement()
+    {
+        rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * movement.normalized);
+    }
+
+    void HandleAnimations()
+    {
         if (movement != Vector2.zero)
         {
             animator.SetFloat("MovementX", movement.x);
